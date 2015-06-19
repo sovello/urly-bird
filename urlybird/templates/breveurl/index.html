@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block extrahead %}
+{{ header }}
+{% endblock %}
+
+{% block content %}
+
+<h1>The story shifted to Short URLs</h1>
+<ul>
+{% for bookmark in bookmark_list %}
+	<li>{{ bookmark.description }}<br /><span>{{ bookmark.url }}</span><br />
+	<span><a href="{{bookmark.short_url}}{{bookmark.breveurl}}">{{ bookmark.short_url}}{{bookmark.breveurl }}</a></span></li>
+{% endfor %}
+{% endblock %}

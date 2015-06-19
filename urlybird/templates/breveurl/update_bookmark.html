@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Hola Muchacho!</h1>
+{% if form.is_multipart %}
+<form method="POST" enctype="multipart/form-data" action="{% url 'userprofile' user.id %}">
+{% else %}
+	<form method="POST" action="{% url 'create_bookmark' %}">
+{% endif %}		
+	{% csrf_token %}					
+		{{ form.as_ul }}
+	</ul>
+	<input type="Submit" value="Update" />
+
+{% endblock %}
