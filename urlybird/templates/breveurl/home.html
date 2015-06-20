@@ -5,6 +5,24 @@
 
 {% block content %}
 
-<h5>Welcome {{ user.username }}</h5>
-
+    <h1>Welcome {{ user.username }}</h5>
+      <ol>
+	{% for urly in bookmark_list %}
+		  <li id="{{urly.id}}">
+			  <span>
+				  <a target="_new" href="{{urly.short_url}}{{urly.breveurl}}">{{ urly.short_url}}{{urly.breveurl }}</a><span id="bookmark_delete_form">
+				  <form method="post" action="{% url 'delete_bookmark' %} " id="delete-form">
+					  {% csrf_token %}
+					  <input id="markid" type="hidden" value="{{urly.id}}">
+					  <input type="submit", value="Delete" /> 
+				  </form>
+				  </span>
+			  </span>
+		  </li>
+	{% endfor %}
+{% include '_pagination.html' %}
 {% endblock %}
+		  {% block extrascripts %}
+		  {% load static %}
+		  <script src="{% static 'js/urly.js' %}" type="text/javascript"></script>
+		  {% endblock extrascripts %}

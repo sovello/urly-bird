@@ -9,6 +9,7 @@
 <ul>
 {% for bookmark in bookmark_list %}
 	<li>{{ bookmark.description }}<br /><span>{{ bookmark.url }}</span><br />
-	<span><a href="{{bookmark.short_url}}{{bookmark.breveurl}}">{{ bookmark.short_url}}{{bookmark.breveurl }}</a></span></li>
-{% endfor %}
+	<span><a target='_new' href="{{bookmark.short_url}}{{bookmark.breveurl}}">{{ bookmark.short_url}}{{bookmark.breveurl }}</a></span></li>
+	{% endfor %}
+	{% include '_pagination.html' %}
 {% endblock %}

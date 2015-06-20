@@ -47,10 +47,11 @@
 						
 					</ul>
 					<div>
-						{{ request.user }}
+						
 						{% if user.is_anonymous %}
 						<a href="{% url 'django.contrib.auth.views.login' %}">LOGIN</a>
 						{% else %}
+						{{ request.user }}
 					    <a href="{% url 'django.contrib.auth.views.logout' %}">LOGOUT</a>
 						{% endif %}
 					</div>
@@ -60,7 +61,7 @@
 		<div id="messages">
 			{% if messages %}
 			{% for message in messages %}
-			<div style="background-color:#D7DF01" class="alert alert-{{message.tags}}">
+			<div style="background-color:#D7DF01" id="bkdelete" class="alert alert-{{message.tags}}">
 				<a class="close" data-dismiss="alert">x</a>
 				{{message}}
 			</div>
@@ -72,5 +73,7 @@
 			{% endblock %}
 		</div>
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		{% block extrascripts %}
+		{% endblock extrascripts %}
 	</body>
 </html>
