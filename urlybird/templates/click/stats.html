@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block extrahead %}
+{{ header }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Welcome {{ user.username }}</h5>
+		<h1>It is unfortunate, we don't have any content yet</h1>
+		<p>Year is {{year}}</p>
+		<p>Bookmark accessed {{ counts }} time{{counts|pluralize}}</p>
+		{% for bookmark in bkmark %}
+		<li>{{bookmark.id}}
+			<br />&nbsp;<br />
+			<span>Access Details</span><br />
+			<span><strong>Country:</strong> {{ geodata.country_long }}-<em>{{geodata.country_short}}</em></span><br />
+			<span><strong>City:</strong> {{ geodata.city }} <br /><em>ZipCode: {{geodata.zipcode}}</em><br />&nbsp;</span>
+				
+		</li>
+		<li>{{bookmark.ip_address}}</li>
+		<li>{{bookmark.user}}</li>
+		<li>{{bookmark.accessed_times}}
+			
+		</li>
+		
+		{% endfor %}
+
+{% endblock %}
+		
+		

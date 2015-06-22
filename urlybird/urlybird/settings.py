@@ -38,6 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'breveurl',
+    'click',
+    'ip2location',
 )
 
 MIDDLEWARE_CLASSES = (
