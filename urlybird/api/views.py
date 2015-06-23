@@ -18,3 +18,9 @@ class BookmarkViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(user = self.request.user, breveurl=breve_views.shortenURL())
+
+
+class BookmarkDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+    serializer_class = BookmarkSerializer
+    queryset = Bookmark.objects.all()

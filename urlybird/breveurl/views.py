@@ -63,20 +63,8 @@ class BookMarkMixin(object):
             form.instance.user = User.objects.get(username='breveurl')
         else:
             form.instance.user = User.objects.get(id=self.request.user.id)
-        form.instance.breveurl = self.shortenURL()
+        form.instance.breveurl = shortenURL()
         return super(BookMarkMixin, self).form_valid(form)
-
-    def shortenURL(self, anonymous = True):
-        from hashids import Hashids
-        import random
-        hashids = Hashids(salt="Kilimokwanza", min_length=4)
-        
-        if len(Bookmark.objects.all()) == 0:
-            lastentry = Bookmark()
-            lastentry.id = 0
-        else:
-            lastentry = Bookmark.objects.latest('id')
-        return hashids.encrypt(lastentry.id+1)
 
     
 class BookmarkCreateView(BookMarkMixin, CreateView):
@@ -99,6 +87,19 @@ class BookmarkUpdateView(LoginRequiredMixin, BookMarkMixin, UpdateView):
     template_name = 'breveurl/update_bookmark.html'
     success_url = '/breveurl/home/'
 
+def shortenURL(anonymous = True):
+    from hashids import Hashids
+    import random
+    hashids = Hashids(salt="Kilimokwanza", min_length=4)
+
+    if len(Bookmark.objects.all()) == 0:
+        lastentry = Bookmark()
+        lastentry.id = 0
+    else:
+        lastentry = Bookmark.objects.latest('id')
+    return hashids.encrypt(lastentry.id+1)
+
+    
 def delete_bookmark(request):    
     if request.method == 'POST':        
         bookmark_id = request.POST.get('the_bookmark') # this was set in the jQuery

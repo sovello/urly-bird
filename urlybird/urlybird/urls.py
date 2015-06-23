@@ -18,10 +18,18 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf.urls.static import static # to include media files
 #from breveurl.views import views
+from rest_framework import routers
+from api import views as api_views
+
+
+router = routers.DefaultRouter()
+router.register(r'bookmarkapi', api_views.BookmarkViewSet)
 
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^breveurl/', include('breveurl.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    
+    url(r'^api/', include(router.urls)),
+    url(r'bookmark/(?P<pk>\d+)', api_views.BookmarkDetailView.as_view()),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

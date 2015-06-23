@@ -20,7 +20,14 @@
 		<form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
 			<h2 class="form-signin-heading">Please Login</h2>
 			{% csrf_token %}
-			
+			<div class="form-group">
+				<label>{{ form.username.label_tag }}</label>
+				{{form.username}}
+			</div>
+			<div class="form-group">
+				<label>{{ form.password.label_tag }}</label>
+				{{form.password}}
+			</div>
 		<table>
 			<tr>
 				<td>{{ form.username.label_tag }}</td>
