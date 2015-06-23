@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.conf.urls.static import static # to include media files
 #from breveurl.views import views
 from rest_framework import routers
+from rest_framework.authtoken import views as authtoken_views
 from api import views as api_views
 from userapi import views as userapi_views
 
@@ -33,5 +34,6 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'bookmark/(?P<pk>\d+)', api_views.BookmarkDetailView.as_view()),
     url(r'user/(?P<pk>\d+)', userapi_views.UserDetailView.as_view()),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),    
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # so that users can login from the rest_framework Interface
+    url(r'^api-token-auth/', authtoken_views.obtain_auth_token) # so users will be required to provide their Token when logging in
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
