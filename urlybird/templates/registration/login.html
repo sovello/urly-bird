@@ -10,36 +10,30 @@
 
 		{% if next %}
 		{% if user.is_authenticated %}
-		<p>Your account doesn't have access to this page. To proceed,
-			please login with an account that has access.</p>
+		<p>Please Correct Errors on your form</p>
 		{% else %}
 		<p>Please Login to See Restricted Content.</p>
 		{% endif %}
 		{% endif %}
 
 		<form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
-			<h2 class="form-signin-heading">Please Login</h2>
+			<h4 class="form-signin-heading">Please Login</h4>
 			{% csrf_token %}
-			<div class="form-group">
-				<label>{{ form.username.label_tag }}</label>
-				{{form.username}}
-			</div>
-			<div class="form-group">
-				<label>{{ form.password.label_tag }}</label>
-				{{form.password}}
-			</div>
-		<table>
-			<tr>
-				<td>{{ form.username.label_tag }}</td>
-				<td>{{ form.username }}</td>
-			</tr>
-			<tr>
-				<td>{{ form.password.label_tag }}</td>
-				<td>{{ form.password }}</td>
-			</tr>
-		</table>
 
-		<input type="submit" value="login" />
+			<!-- {% for field in form.visible_fields %} -->
+			<div class="form-group">
+				{{form.as_p}}
+				<!-- {{ field.errors }}
+				<label for="{{field.id_for_label}}">{{field.label}}</label>
+				<input class="form-control" id="{{ field.id_for_label }}"  name="{{field.html_name}}" value="{{field.value}}" type="{% if field.PasswordField %}{{password}}{% else %} {{ text }} {% endif %}" /> -->
+			</div>
+			<!-- {% endfor %} -->
+			
+			<div class="form-group">
+			{{ form.password.label_tag }}
+			{{ form.password }}
+			</div> 
+		<input type="submit" class="btn btn-primary" value="login" />
 		<input type="hidden" name="next" value="{{ '/breveurl/home' }}" />
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 		</form>

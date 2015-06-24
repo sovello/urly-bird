@@ -47,7 +47,7 @@ class UserView(LoginRequiredMixin, ListView):
         return context
     
     def get_queryset(self):
-        return self.object.bookmark_set.all();
+        return self.object.bookmarks.all();
 
     
 class BookMarkMixin(object):

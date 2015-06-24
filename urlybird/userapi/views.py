@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from userapi.serializers import UserSerializer
 from django.contrib.auth.models import User
-from userapi.permissions import IsOwnerOrReadOnly
+from userapi.permissions import IsOwnerOrReadOnly, IsAdminUserOrReadOnly
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -18,13 +18,12 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticated,) # prevents a user to see the post form if they are not authenticated
+    permission_classes = (permissions.IsAuthenticated,IsAdminUserOrReadOnly) # prevents a user to see the post form if they are not authenticated
     queryset = User.objects.all() # list all the books
 
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication, BasicAuthentication)
-    permission_classes = (permissions.IsAdminUser)
+    permission_classes = (permissions.IsAdminUser,)
     serializer_class = UserSerializer
     queryset = User.objects.all()
-

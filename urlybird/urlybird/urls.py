@@ -24,16 +24,17 @@ from api import views as api_views
 from userapi import views as userapi_views
 
 router = routers.DefaultRouter()
-router.register(r'bookmarkapi', api_views.BookmarkViewSet)
-router.register(r'userapi', userapi_views.UserViewSet)
-
+router.register(r'bookmarks', api_views.BookmarkViewSet)
+router.register(r'users', userapi_views.UserViewSet)
+router.register(r'clicks', api_views.ClickViewSet)
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^breveurl/', include('breveurl.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
-    url(r'bookmark/(?P<pk>\d+)', api_views.BookmarkDetailView.as_view()),
-    url(r'user/(?P<pk>\d+)', userapi_views.UserDetailView.as_view()),
+    url(r'^bookmarks/(?P<pk>\d+/$)', api_views.BookmarkDetailView.as_view(), name="bookmark-detail"),
+    url(r'^users/(?P<pk>\d+/$)', userapi_views.UserDetailView.as_view(), name="user-detail"),
+    url(r'^clicks/(?P<pk>\d+/$)', api_views.ClickDetailVeiw.as_view(), name="click-view"),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # so that users can login from the rest_framework Interface
     url(r'^api-token-auth/', authtoken_views.obtain_auth_token) # so users will be required to provide their Token when logging in
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
