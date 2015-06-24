@@ -18,7 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticated,IsAdminUserOrReadOnly) # prevents a user to see the post form if they are not authenticated
+    permission_classes = (IsAdminUserOrReadOnly,) # prevents a user to see the post form if they are not authenticated
     queryset = User.objects.all() # list all the books
 
 
