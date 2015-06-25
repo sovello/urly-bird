@@ -1,0 +1,5 @@
+from django.core.management.base import BaseCommand, CommandError
+from breveurl.models import Bookmark
+
+class Command(BaseCommand):
+# this is a requirement for any admin command to extend BaseCommand

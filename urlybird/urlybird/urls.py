@@ -35,6 +35,6 @@ urlpatterns = [
     url(r'^bookmarks/(?P<pk>\d+/$)', api_views.BookmarkDetailView.as_view(), name="bookmark-detail"),
     url(r'^users/(?P<pk>\d+/$)', userapi_views.UserDetailView.as_view(), name="user-detail"),
     url(r'^clicks/(?P<pk>\d+/$)', api_views.ClickDetailVeiw.as_view(), name="click-view"),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # so that users can login from the rest_framework Interface
-    url(r'^api-token-auth/', authtoken_views.obtain_auth_token) # so users will be required to provide their Token when logging in
+#    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # so that users can login from the rest_framework Interface
+    url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

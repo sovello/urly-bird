@@ -1,6 +1,7 @@
 #from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics
 from rest_framework.exceptions import PermissionDenied
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 # Create your views here.
 from api.serializers import BookmarkListSerializer, BookmarkDetailSerializer, ClickDetailSerializer
@@ -14,7 +15,7 @@ class BookmarkViewSet(viewsets.ModelViewSet):
     queryset = Bookmark.objects.all() # list all the books
     serializer_class = BookmarkListSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly) # prevents a user to see the post form if they are not authenticated
-    
+    authentication_classes = (JSONWebTokenAuthentication, )
     def perform_create(self, serializer):
         serializer.save(user = self.request.user, breveurl=breve_views.shortenURL())
 
@@ -22,6 +23,7 @@ class BookmarkViewSet(viewsets.ModelViewSet):
 class BookmarkDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     serializer_class = BookmarkDetailSerializer
+    authentication_classes = (JSONWebTokenAuthentication, )
     queryset = Bookmark.objects.all()
 
 

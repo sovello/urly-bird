@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Bookmark(models.Model):
     url = models.URLField()
-    description = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=700, blank=True, null=True)
     breveurl = models.CharField(max_length=255, blank=True, null=True)
-    tags = models.CharField(max_length=255, blank=True, null=True)
+    tags = models.CharField(max_length=500, blank=True, null=True)
     user = models.ForeignKey(User, related_name="bookmarks")
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     last_accessed = models.DateTimeField(null=True, blank=True)
-
+    short_description = models.CharField(max_length=500, null=True, blank=True)
     def __str__(self):
         return "{}".format(self.url)
 

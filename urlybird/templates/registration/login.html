@@ -19,20 +19,9 @@
 		<form class="form-signin" method="post" action="{% url 'django.contrib.auth.views.login' %}">
 			<h4 class="form-signin-heading">Please Login</h4>
 			{% csrf_token %}
-
-			<!-- {% for field in form.visible_fields %} -->
 			<div class="form-group">
 				{{form.as_p}}
-				<!-- {{ field.errors }}
-				<label for="{{field.id_for_label}}">{{field.label}}</label>
-				<input class="form-control" id="{{ field.id_for_label }}"  name="{{field.html_name}}" value="{{field.value}}" type="{% if field.PasswordField %}{{password}}{% else %} {{ text }} {% endif %}" /> -->
 			</div>
-			<!-- {% endfor %} -->
-			
-			<div class="form-group">
-			{{ form.password.label_tag }}
-			{{ form.password }}
-			</div> 
 		<input type="submit" class="btn btn-primary" value="login" />
 		<input type="hidden" name="next" value="{{ '/breveurl/home' }}" />
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
